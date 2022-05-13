@@ -3,6 +3,7 @@ package main.restControllers;
 import main.DAO.OwnerDAO;
 import main.entities.User;
 import main.entities.Pet;
+import main.payload.response.PetResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -30,17 +31,16 @@ public class AdminController {
         return new ResponseEntity<>(users, HttpStatus.OK);
     }
 
-    //TODO add owners when response
     @GetMapping("/pets")
     public ResponseEntity<?> getPets(){
-        List<Pet> pets = ownerDAO.getPets();
+        List<PetResponse> pets = ownerDAO.getPets();
         if (pets.isEmpty()){
             return ResponseEntity.status(HttpStatus.NO_CONTENT).body(null);
         }
         return new ResponseEntity<>(pets, HttpStatus.OK);
     }
 
-    //TODO check pets was delete or not
+    //Worked
     @DeleteMapping("/owner")
     public ResponseEntity<?> deleteOwnerById(@RequestParam("id") long id){
         long result = ownerDAO.deleteOwnerById(id);
@@ -50,7 +50,7 @@ public class AdminController {
         return new ResponseEntity<>(result, HttpStatus.OK);
     }
 
-    //FIXME how delete relationship with owner (user_id)
+    //Worked
     @DeleteMapping("/pet")
     public ResponseEntity<?> deletePetById(@RequestParam("id") long id){
         long result = ownerDAO.deletePetById(id);
@@ -66,7 +66,7 @@ public class AdminController {
         if (ownerDAO.getOwnerById(ownerId) == null){
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
         }
-        Pet pet = ownerDAO.addPet(ownerId, request);
+        PetResponse pet = ownerDAO.addPet(ownerId, request);
         return new ResponseEntity<>(pet, HttpStatus.CREATED);
     }
 

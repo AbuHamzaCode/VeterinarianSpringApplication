@@ -4,6 +4,7 @@ import main.DAO.OwnerDAO;
 import main.entities.User;
 import main.entities.Pet;
 import main.payload.request.OwnerRequest;
+import main.payload.response.PetResponse;
 import main.services.UserDetailsImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -23,8 +24,6 @@ public class InController {
     @Autowired
     private OwnerDAO ownerDAO;
 
-    //TODO add getPets(Authentication auth){}
-
     //Worked
     @GetMapping("/user/pets")
     public ResponseEntity<?> getPetsByOwnerName(@RequestParam("name") String fullName, Authentication authentication){
@@ -32,7 +31,7 @@ public class InController {
             return ResponseEntity.status(HttpStatus.NO_CONTENT).body(null);
         }
         UserDetailsImpl userDetails = (UserDetailsImpl) authentication.getPrincipal();
-        List<Pet> pets = ownerDAO.getPetsByOwnerName(userDetails.getFullName());
+        List<PetResponse> pets = ownerDAO.getPetsByOwnerName(userDetails.getFullName());
         return new ResponseEntity<>(pets, HttpStatus.OK);
     }
 
@@ -43,8 +42,8 @@ public class InController {
             return ResponseEntity.status(HttpStatus.NO_CONTENT).body(null);
         }
         UserDetailsImpl userDetails = (UserDetailsImpl) authentication.getPrincipal();
-        List<Pet> pets = ownerDAO.getPetsByOwnerName(userDetails.getFullName());
-        Pet pet = pets.stream().filter(p -> p.getName().contains(name)).findFirst().get();
+        List<PetResponse> pets = ownerDAO.getPetsByOwnerName(userDetails.getFullName());
+        PetResponse pet = pets.stream().filter(p -> p.getName().contains(name)).findFirst().get();
         return new ResponseEntity<>(pet, HttpStatus.OK);
     }
 
@@ -53,7 +52,7 @@ public class InController {
     public ResponseEntity<?> addPet(@Valid @RequestBody Pet request, Authentication authentication){
         UserDetailsImpl userDetails = (UserDetailsImpl) authentication.getPrincipal();
         User user = ownerDAO.getOwnerById(userDetails.getId());
-        Pet pet = ownerDAO.addPet(user.getId(), request);
+        PetResponse pet = ownerDAO.addPet(user.getId(), request);
         return new ResponseEntity<>(pet, HttpStatus.CREATED);
     }
 
@@ -68,7 +67,7 @@ public class InController {
     //Worked
     @PutMapping("/user/pet")
     public ResponseEntity<?> updatePet(@RequestParam("id") long id, @Valid @RequestBody Pet request){
-        Pet pet = ownerDAO.updatePet(id, request);
+        PetResponse pet = ownerDAO.updatePet(id, request);
         return new ResponseEntity<>(pet, HttpStatus.OK);
     }
 }

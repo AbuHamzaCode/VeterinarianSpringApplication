@@ -54,7 +54,7 @@ public class User implements Serializable {
     @Email
     private String email;
 
-    @OneToMany(mappedBy = "user")
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
     @JsonManagedReference
     private List<Pet> petList = new ArrayList<>();
 
