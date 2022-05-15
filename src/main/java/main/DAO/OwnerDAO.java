@@ -96,11 +96,14 @@ public class OwnerDAO {
         return updatedUser;
     }
 
-    public PetResponse updatePet(long id, Pet newPet) {
+    public PetResponse updatePet(long id, Pet newPet, String ownerName) {
         if (!petRepository.existsById(id)){
             return null;
         }
         Pet updatedPet = petRepository.getById(id);
+        if (!updatedPet.getUser().getFullName().contains(ownerName)){
+            return null;
+        }
         updatedPet.setName(newPet.getName());
         updatedPet.setBreed(newPet.getBreed());
         updatedPet.setAge(newPet.getAge());

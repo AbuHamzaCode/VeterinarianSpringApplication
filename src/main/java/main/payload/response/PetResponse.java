@@ -3,7 +3,6 @@ package main.payload.response;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
-import main.entities.User;
 
 @Getter
 @Setter
