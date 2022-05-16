@@ -10,7 +10,12 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.util.ArrayList;
 import java.util.List;
+
+/**
+ *   REST Controller for admin role
+ */
 
 @CrossOrigin(origins = "*", maxAge = 3600)
 @RestController
@@ -20,8 +25,8 @@ public class AdminController {
     @Autowired
     private OwnerDAO ownerDAO;
 
-    //Worked
-    @GetMapping("/users")
+
+    @GetMapping("/owners")
     public ResponseEntity<?> getOwners(){
         List<User> users = ownerDAO.getOwners();
         if (users.isEmpty()){
@@ -32,14 +37,24 @@ public class AdminController {
 
     @GetMapping("/pets")
     public ResponseEntity<?> getPets(){
-        List<PetResponse> pets = ownerDAO.getPets();
+        List<Pet> pets = ownerDAO.getPets();
         if (pets.isEmpty()){
             return ResponseEntity.status(HttpStatus.NO_CONTENT).body(null);
         }
-        return new ResponseEntity<>(pets, HttpStatus.OK);
+        List<PetResponse> petResponses = new ArrayList<>();
+        for (Pet pet : pets){
+            petResponses.add(new PetResponse(pet.getId(),
+                    pet.getBreed(),
+                    pet.getName(),
+                    pet.getGender(),
+                    pet.getAge(),
+                    pet.getDescription(),
+                    pet.getUser().getFullName()));
+        }
+        return new ResponseEntity<>(petResponses, HttpStatus.OK);
     }
 
-    //Worked
+
     @DeleteMapping("/owner")
     public ResponseEntity<?> deleteOwnerById(@RequestParam("id") long id){
         long result = ownerDAO.deleteOwnerById(id);
@@ -49,7 +64,7 @@ public class AdminController {
         return new ResponseEntity<>(result, HttpStatus.OK);
     }
 
-    //Worked
+
     @DeleteMapping("/pet")
     public ResponseEntity<?> deletePetById(@RequestParam("id") long id){
         long result = ownerDAO.deletePetById(id);
@@ -59,7 +74,7 @@ public class AdminController {
         return new ResponseEntity<>(result, HttpStatus.OK);
     }
 
-    //Worked
+
     @PostMapping("/pet")
     public ResponseEntity<?> addPet(@RequestParam("id") long ownerId, @Valid @RequestBody Pet request){
         if (ownerDAO.getOwnerById(ownerId) == null){

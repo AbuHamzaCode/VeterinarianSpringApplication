@@ -13,6 +13,10 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ *  OwnerDAO - class for work with repository CRUD methods
+ */
+
 @Service
 @Transactional
 public class OwnerDAO {
@@ -27,19 +31,8 @@ public class OwnerDAO {
         return userRepository.findAll();
     }
 
-    public List<PetResponse> getPets(){
-        List<Pet> pets = petRepository.findAll();
-        List<PetResponse> petResponses = new ArrayList<>();
-        for (Pet pet : pets){
-            petResponses.add(new PetResponse(pet.getId(),
-                    pet.getBreed(),
-                    pet.getName(),
-                    pet.getGender(),
-                    pet.getAge(),
-                    pet.getDescription(),
-                    pet.getUser().getFullName()));
-        }
-        return petResponses;
+    public List<Pet> getPets(){
+        return petRepository.findAll();
     }
 
     public User getOwnerById(long id) {

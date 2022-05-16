@@ -5,6 +5,10 @@ import lombok.Setter;
 
 import java.util.List;
 
+/**
+ *  JwtResponse - sample with token for response when user or admin authenticate
+ */
+
 @Getter
 @Setter
 public class JwtResponse {

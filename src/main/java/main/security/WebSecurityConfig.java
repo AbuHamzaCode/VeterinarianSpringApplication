@@ -18,6 +18,17 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
+/**
+ *   WebSecurityConfigurerAdapter - this is the crux of our implementation of security.
+ *      It provides HttpSecurity config to set up cors, csrf, session management, rules for secure resources.
+ *      We can also expand and customize the default configuration containing the following items.
+ *
+ *   AuthenticationManager - has a DaoAuthenticationProvider (using UserDetailsService& PasswordEncoder)
+ *      to check the UsernamePasswordAuthenticationToken object.
+ *      If successful, the AuthenticationManager returns
+ *      A fully populated authentication object (including granted credentials).
+ */
+
 @Configuration
 @EnableWebSecurity
 @EnableGlobalMethodSecurity(

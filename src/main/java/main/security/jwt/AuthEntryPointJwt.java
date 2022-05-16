@@ -15,6 +15,11 @@ import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
+/**
+ *   AuthenticationEntryPoint - an unauthorized error will be thrown and a 401 will be returned,
+ *   when clients access protected resources without authentication.
+ */
+
 @Component
 public class AuthEntryPointJwt implements AuthenticationEntryPoint {
 

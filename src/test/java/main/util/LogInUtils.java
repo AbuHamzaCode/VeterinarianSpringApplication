@@ -6,6 +6,9 @@ import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 
+/**
+ *  LogInUtils - util class for authenticate users or admin
+ */
 public final class LogInUtils {
 
 

@@ -9,6 +9,11 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+/**
+ *  UserDetailsService - interface has method to load user by username
+ *     and returns a UserDetails object that Spring Security can use for authentication and validation.
+ */
+
 @Service
 public class UserDetailsServiceImpl implements UserDetailsService {
 

@@ -18,6 +18,15 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
+/**
+ *  UserControllerTest -  methods coverage in AuthController and InController
+ *
+ *  Created test user, use all methods and delete in class AdminControllerTest
+ *
+ *  First one Run test cases in this class (UserControllerTest),
+ *  because this class create test user and delete him in AdminControllerTest
+ */
+
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 public class UserControllerTest extends AbstractRestControllerTest {
 

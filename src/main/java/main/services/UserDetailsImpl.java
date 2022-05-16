@@ -12,6 +12,12 @@ import java.util.List;
 import java.util.Objects;
 import java.util.stream.Collectors;
 
+/**
+ *   UserDetails - contains the necessary information
+ *      (such as: username, password, authority)
+ *      to create an authentication object.
+ */
+
 
 public class UserDetailsImpl implements UserDetails {
 

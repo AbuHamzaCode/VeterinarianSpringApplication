@@ -17,6 +17,17 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
+/**
+ *  UsernamePasswordAuthenticationToken - gets {username, password} from the login request,
+ *      AuthenticationManager will use it to authenticate the login account.
+ *
+ *
+ *   OncePerRequestFilter - performs a one-time execution of each request to our API.
+ *      It provides a doFilterInternal() method that we implement to parse and validate the JWT,
+ *      loading user details (using UserDetailsService),
+ *      authorization checks (using UsernamePasswordAuthenticationToken).
+ */
+
 public class AuthTokenFilter extends OncePerRequestFilter {
 
     @Autowired

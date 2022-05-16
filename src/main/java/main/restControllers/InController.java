@@ -15,6 +15,10 @@ import org.springframework.web.bind.annotation.*;
 import javax.validation.Valid;
 import java.util.List;
 
+/**
+ *  REST Controller for user role
+ */
+
 @CrossOrigin(origins = "*", maxAge = 3600)
 @RestController
 @RequestMapping("/in")
@@ -23,7 +27,7 @@ public class InController {
     @Autowired
     private OwnerDAO ownerDAO;
 
-    //Worked
+
     @GetMapping("/user/pets")
     public ResponseEntity<?> getPetsByOwnerName(@RequestParam("name") String fullName, Authentication authentication){
         if (fullName == null){
@@ -34,7 +38,7 @@ public class InController {
         return new ResponseEntity<>(pets, HttpStatus.OK);
     }
 
-    //Worked
+
     @GetMapping("/user/pet")
     public ResponseEntity<?> getPetByName(@RequestParam("name") String name, Authentication authentication){
         if (name == null){
@@ -52,7 +56,7 @@ public class InController {
         return new ResponseEntity<>(pet, HttpStatus.OK);
     }
 
-    //Worked
+
     @PostMapping("/user/pet")
     public ResponseEntity<?> addPet(@Valid @RequestBody Pet request, Authentication authentication){
         if (request == null){
@@ -65,7 +69,7 @@ public class InController {
         return new ResponseEntity<>(pet, HttpStatus.CREATED);
     }
 
-    //Worked
+
     @PutMapping("/user/owner")
     public ResponseEntity<?> updateOwner(@Valid @RequestBody OwnerRequest request, Authentication authentication){
         if (request == null){
@@ -77,7 +81,7 @@ public class InController {
         return new ResponseEntity<>(user, HttpStatus.OK);
     }
 
-    //Worked
+
     @PutMapping("/user/pet")
     public ResponseEntity<?> updatePet(@RequestParam("id") long id,
                                        @Valid @RequestBody Pet request,

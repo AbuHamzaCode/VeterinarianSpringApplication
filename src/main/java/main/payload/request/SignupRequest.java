@@ -7,6 +7,10 @@ import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
 
+/**
+ *   SignupRequest - payload for sing up
+ */
+
 @Getter
 @Setter
 public class SignupRequest {

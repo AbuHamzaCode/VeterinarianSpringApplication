@@ -1,3 +1,6 @@
+-- when run application first time created admin
+-- read more in application.properties
+
 INSERT INTO roles (name) VALUES ("ROLE_ADMIN");
 INSERT INTO users (username, password, full_name, address, phone, email)
 VALUES ("admin", "$2a$10$ofGs5sNE9q05NRvgXlax/eCsIGq97/bLXedkvVqZig5qkwbXQlFOG", --Decoding for admin(Islam1995)

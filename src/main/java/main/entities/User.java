@@ -15,6 +15,12 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+/**
+ *  User - entity class;
+ *  I added method addPet() for add pets;
+ *  I am not created Entity for Admin and use properties from this class;
+ */
+
 @Getter
 @Setter
 @Entity

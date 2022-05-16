@@ -7,6 +7,10 @@ import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
 
+/**
+ *   OwnerRequest - user can change only this fields in him account
+ */
+
 @Getter
 @Setter
 public class OwnerRequest {

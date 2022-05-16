@@ -4,6 +4,10 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
 
+/**
+ *  PetResponse - for response with owner name
+ */
+
 @Getter
 @Setter
 @AllArgsConstructor
