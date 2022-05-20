@@ -3,14 +3,12 @@ package main.restControllers;
 import main.DAO.OwnerDAO;
 import main.entities.User;
 import main.entities.Pet;
-import main.payload.response.PetResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -41,17 +39,7 @@ public class AdminController {
         if (pets.isEmpty()){
             return ResponseEntity.status(HttpStatus.NO_CONTENT).body(null);
         }
-        List<PetResponse> petResponses = new ArrayList<>();
-        for (Pet pet : pets){
-            petResponses.add(new PetResponse(pet.getId(),
-                    pet.getBreed(),
-                    pet.getName(),
-                    pet.getGender(),
-                    pet.getAge(),
-                    pet.getDescription(),
-                    pet.getUser().getFullName()));
-        }
-        return new ResponseEntity<>(petResponses, HttpStatus.OK);
+        return new ResponseEntity<>(pets, HttpStatus.OK);
     }
 
 
@@ -80,7 +68,7 @@ public class AdminController {
         if (ownerDAO.getOwnerById(ownerId) == null){
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
         }
-        PetResponse pet = ownerDAO.addPet(ownerId, request);
+        Pet pet = ownerDAO.addPet(ownerId, request);
         return new ResponseEntity<>(pet, HttpStatus.CREATED);
     }
 

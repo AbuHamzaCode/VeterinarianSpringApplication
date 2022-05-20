@@ -3,7 +3,6 @@ package main.DAO;
 import main.entities.User;
 import main.entities.Pet;
 import main.payload.request.OwnerRequest;
-import main.payload.response.PetResponse;
 import main.repository.UserRepository;
 import main.repository.PetRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -42,7 +41,20 @@ public class OwnerDAO {
         return null;
     }
 
-    public PetResponse addPet(long id, Pet pet) {
+    public boolean deleteAllPets(String fullName){
+       List<Pet> pets = petRepository.findAll();
+       if (pets.isEmpty()){
+           return false;
+       }
+       for (Pet pet : pets){
+           if (pet.getUser().getFullName().contains(fullName)){
+               petRepository.delete(pet);
+           }
+       }
+       return true;
+    }
+
+    public Pet addPet(long id, Pet pet) {
         User user = userRepository.getById(id);
         Pet newPet = new Pet(pet.getBreed(),
                 pet.getName(),
@@ -52,13 +64,7 @@ public class OwnerDAO {
                 user);
         newPet = petRepository.save(newPet);
         user.addPet(newPet);
-        return new PetResponse(newPet.getId(),
-                newPet.getBreed(),
-                newPet.getName(),
-                newPet.getGender(),
-                newPet.getAge(),
-                newPet.getDescription(),
-                user.getFullName());
+        return newPet;
     }
 
 
@@ -89,7 +95,7 @@ public class OwnerDAO {
         return updatedUser;
     }
 
-    public PetResponse updatePet(long id, Pet newPet, String ownerName) {
+    public Pet updatePet(long id, Pet newPet, String ownerName) {
         if (!petRepository.existsById(id)){
             return null;
         }
@@ -102,29 +108,17 @@ public class OwnerDAO {
         updatedPet.setAge(newPet.getAge());
         updatedPet.setGender(newPet.getGender());
         updatedPet.setDescription(newPet.getDescription());
-        return new PetResponse(updatedPet.getId(),
-                updatedPet.getBreed(),
-                updatedPet.getName(),
-                updatedPet.getGender(),
-                updatedPet.getAge(),
-                updatedPet.getDescription(),
-                updatedPet.getUser().getFullName());
+        return updatedPet;
     }
 
-    public List<PetResponse> getPetsByOwnerName(String fullName) {
+    public List<Pet> getPetsByOwnerName(String fullName) {
         if (fullName == null) {
             return null;
         }
-        List<PetResponse> pets = new ArrayList<>();
+        List<Pet> pets = new ArrayList<>();
         for (Pet pet : petRepository.findAll()) {
             if (pet.getUser().getFullName().contains(fullName)) {
-                pets.add(new PetResponse(pet.getId(),
-                        pet.getBreed(),
-                        pet.getName(),
-                        pet.getGender(),
-                        pet.getAge(),
-                        pet.getDescription(),
-                        pet.getUser().getFullName()));
+                pets.add(pet);
             }
         }
         return pets;

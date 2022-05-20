@@ -40,7 +40,7 @@ public class UserControllerTest extends AbstractRestControllerTest {
 
     private static String id;
 
-    private final String URL = "/in";
+    private final String URL = "/in/user";
 
 
     @Test
@@ -70,8 +70,8 @@ public class UserControllerTest extends AbstractRestControllerTest {
 
     @Test
     @Order(3)
-    public void addPetTest() throws Exception {
-        ResultActions resultActions = getMockMvc().perform(post(URL + "/user/pet")
+    public void addPetFirstTest() throws Exception {
+        ResultActions resultActions = getMockMvc().perform(post(URL + "/pet")
                         .contentType(MediaType.APPLICATION_JSON)
                         .header("Authorization", "Bearer " + token)
                         .content("{\n" +
@@ -93,7 +93,7 @@ public class UserControllerTest extends AbstractRestControllerTest {
     @Test
     @Order(4)
     public void getPetByNameTest() throws Exception {
-        getMockMvc().perform(get(URL + "/user/pet/?name=Tom")
+        getMockMvc().perform(get(URL + "/pet/?name=Tom")
                         .contentType(MediaType.APPLICATION_JSON)
                         .header("Authorization", "Bearer " + token))
                 .andExpect(status().isOk());
@@ -101,8 +101,8 @@ public class UserControllerTest extends AbstractRestControllerTest {
 
     @Test
     @Order(5)
-    public void getPetsByOwnerNameTest() throws Exception {
-        getMockMvc().perform(get(URL + "/user/pets/?name=Angela Santos")
+    public void getPetsTest() throws Exception {
+        getMockMvc().perform(get(URL + "/pets")
                         .contentType(MediaType.APPLICATION_JSON)
                         .header("Authorization", "Bearer " + token))
                 .andExpect(status().isOk());
@@ -111,7 +111,7 @@ public class UserControllerTest extends AbstractRestControllerTest {
     @Test
     @Order(6)
     public void updateOwnerTest() throws Exception {
-        getMockMvc().perform(put(URL + "/user/owner")
+        getMockMvc().perform(put(URL + "/owner")
                         .contentType(MediaType.APPLICATION_JSON)
                         .header("Authorization", "Bearer " + token)
                         .content("{\n" +
@@ -126,7 +126,7 @@ public class UserControllerTest extends AbstractRestControllerTest {
     @Test
     @Order(7)
     public void updatePetTest() throws Exception {
-        getMockMvc().perform(put(URL + "/user/pet/?id=" + id)
+        getMockMvc().perform(put(URL + "/pet/?id=" + id)
                         .contentType(MediaType.APPLICATION_JSON)
                         .header("Authorization", "Bearer " + token)
                         .content("{\n" +
@@ -137,5 +137,55 @@ public class UserControllerTest extends AbstractRestControllerTest {
                                 " \"description\": \"Tom is live\"\n" +
                                 "}"))
                 .andExpect(status().isOk());
+    }
+
+    @Test
+    @Order(8)
+    public void deletePetByIdTest() throws Exception {
+        getMockMvc().perform(delete(URL + "/pet/?id=" + id)
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .header("Authorization", "Bearer " + token))
+                .andExpect(status().isOk());
+    }
+
+    @Test
+    @Order(9)
+    public void addPetSecondTest() throws Exception {
+        getMockMvc().perform(post(URL + "/pet")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .header("Authorization", "Bearer " + token)
+                        .content("{\n" +
+                                " \"breed\": \"Haski\",\n" +
+                                " \"name\": \"Tom\",\n" +
+                                " \"gender\": \"male\",\n" +
+                                " \"age\": \"" + 1 + "\",\n" +
+                                " \"description\": \"Tom is sic\"\n" +
+                                "}"))
+                .andExpect(status().isCreated());
+    }
+
+    @Test
+    @Order(10)
+    public void deleteAllTest() throws Exception {
+        getMockMvc().perform(delete(URL + "/pets")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .header("Authorization", "Bearer " + token))
+                .andExpect(status().isOk());
+    }
+
+    @Test
+    @Order(11)
+    public void addPetThirdTest() throws Exception {
+        getMockMvc().perform(post(URL + "/pet")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .header("Authorization", "Bearer " + token)
+                        .content("{\n" +
+                                " \"breed\": \"Haski\",\n" +
+                                " \"name\": \"Tom\",\n" +
+                                " \"gender\": \"male\",\n" +
+                                " \"age\": \"" + 1 + "\",\n" +
+                                " \"description\": \"Tom is sic\"\n" +
+                                "}"))
+                .andExpect(status().isCreated());
     }
 }

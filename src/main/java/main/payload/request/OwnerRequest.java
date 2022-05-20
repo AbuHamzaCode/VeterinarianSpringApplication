@@ -1,7 +1,5 @@
 package main.payload.request;
 
-import lombok.Getter;
-import lombok.Setter;
 
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
@@ -11,8 +9,6 @@ import javax.validation.constraints.Size;
  *   OwnerRequest - user can change only this fields in him account
  */
 
-@Getter
-@Setter
 public class OwnerRequest {
 
     @NotBlank
@@ -31,4 +27,36 @@ public class OwnerRequest {
     @Email
     private String email;
 
+
+    public String getFullName() {
+        return fullName;
+    }
+
+    public void setFullName(String fullName) {
+        this.fullName = fullName;
+    }
+
+    public String getAddress() {
+        return address;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
+    }
+
+    public String getPhone() {
+        return phone;
+    }
+
+    public void setPhone(String phone) {
+        this.phone = phone;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
 }
