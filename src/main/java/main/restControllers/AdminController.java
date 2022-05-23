@@ -3,6 +3,7 @@ package main.restControllers;
 import main.DAO.OwnerDAO;
 import main.entities.User;
 import main.entities.Pet;
+import main.payload.response.PetResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -35,7 +36,7 @@ public class AdminController {
 
     @GetMapping("/pets")
     public ResponseEntity<?> getPets(){
-        List<Pet> pets = ownerDAO.getPets();
+        List<PetResponse> pets = ownerDAO.getPets();
         if (pets.isEmpty()){
             return ResponseEntity.status(HttpStatus.NO_CONTENT).body(null);
         }

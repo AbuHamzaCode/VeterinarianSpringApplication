@@ -3,6 +3,7 @@ package main.DAO;
 import main.entities.User;
 import main.entities.Pet;
 import main.payload.request.OwnerRequest;
+import main.payload.response.PetResponse;
 import main.repository.UserRepository;
 import main.repository.PetRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,8 +33,21 @@ public class OwnerDAO {
         return users;
     }
 
-    public List<Pet> getPets(){
-        return petRepository.findAll();
+    public List<PetResponse> getPets(){
+        List<Pet> pets = petRepository.findAll();
+        List<PetResponse> petResponses = new ArrayList<>();
+        for (Pet pet : pets){
+            petResponses.add(new PetResponse(
+                    pet.getId(),
+                    pet.getBreed(),
+                    pet.getName(),
+                    pet.getGender(),
+                    pet.getAge(),
+                    pet.getDescription(),
+                    pet.getUser().getFullName()
+            ));
+        }
+        return petResponses;
     }
 
     public User getOwnerById(long id) {
