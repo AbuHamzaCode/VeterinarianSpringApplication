@@ -34,7 +34,7 @@ public class InController {
     }
 
 
-    @GetMapping("/user/pet")
+    @GetMapping("/user/petName")
     public ResponseEntity<?> getPetByName(@RequestParam("name") String name, Authentication authentication) {
         if (name == null) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(null);
@@ -48,6 +48,19 @@ public class InController {
         }
 
         Pet pet = pets.stream().filter(p -> p.getName().contains(name)).findFirst().get();
+        return new ResponseEntity<>(pet, HttpStatus.OK);
+    }
+
+    @GetMapping("/user/pet")
+    public ResponseEntity<?> getPetById(@RequestParam("id") long id, Authentication authentication) {
+        if (id == 0){
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(null);
+        }
+        UserDetailsImpl userDetails = (UserDetailsImpl) authentication.getPrincipal();
+        Pet pet = ownerDAO.getPetById(id, userDetails.getFullName());
+        if (pet == null) {
+            return ResponseEntity.status(HttpStatus.NO_CONTENT).body(null);
+        }
         return new ResponseEntity<>(pet, HttpStatus.OK);
     }
 

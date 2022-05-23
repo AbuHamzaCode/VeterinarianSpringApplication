@@ -93,7 +93,7 @@ public class UserControllerTest extends AbstractRestControllerTest {
     @Test
     @Order(4)
     public void getPetByNameTest() throws Exception {
-        getMockMvc().perform(get(URL + "/pet/?name=Tom")
+        getMockMvc().perform(get(URL + "/petName/?name=Tom")
                         .contentType(MediaType.APPLICATION_JSON)
                         .header("Authorization", "Bearer " + token))
                 .andExpect(status().isOk());
@@ -141,6 +141,15 @@ public class UserControllerTest extends AbstractRestControllerTest {
 
     @Test
     @Order(8)
+    public void getPetByIdTest() throws Exception {
+        getMockMvc().perform(get(URL + "/pet/?id=" + id)
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .header("Authorization", "Bearer " + token))
+                .andExpect(status().isOk());
+    }
+
+    @Test
+    @Order(9)
     public void deletePetByIdTest() throws Exception {
         getMockMvc().perform(delete(URL + "/pet/?id=" + id)
                         .contentType(MediaType.APPLICATION_JSON)
@@ -149,7 +158,7 @@ public class UserControllerTest extends AbstractRestControllerTest {
     }
 
     @Test
-    @Order(9)
+    @Order(10)
     public void addPetSecondTest() throws Exception {
         getMockMvc().perform(post(URL + "/pet")
                         .contentType(MediaType.APPLICATION_JSON)
@@ -165,7 +174,7 @@ public class UserControllerTest extends AbstractRestControllerTest {
     }
 
     @Test
-    @Order(10)
+    @Order(11)
     public void deleteAllTest() throws Exception {
         getMockMvc().perform(delete(URL + "/pets")
                         .contentType(MediaType.APPLICATION_JSON)
@@ -174,7 +183,7 @@ public class UserControllerTest extends AbstractRestControllerTest {
     }
 
     @Test
-    @Order(11)
+    @Order(12)
     public void addPetThirdTest() throws Exception {
         getMockMvc().perform(post(URL + "/pet")
                         .contentType(MediaType.APPLICATION_JSON)

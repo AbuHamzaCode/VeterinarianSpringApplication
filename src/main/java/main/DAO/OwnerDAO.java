@@ -27,7 +27,9 @@ public class OwnerDAO {
     private PetRepository petRepository;
 
     public List<User> getOwners() {
-        return userRepository.findAll();
+        List<User> users = userRepository.findAll();
+        users.removeIf(user -> user.getId().compareTo(1L) == 0);
+        return users;
     }
 
     public List<Pet> getPets(){
@@ -122,6 +124,16 @@ public class OwnerDAO {
             }
         }
         return pets;
+    }
+
+    public Pet getPetById(long id, String fullName){
+        if (petRepository.existsById(id)){
+            Pet pet = petRepository.getById(id);
+            if (pet.getUser().getFullName().contains(fullName)){
+                return pet;
+            }
+        }
+        return null;
     }
 
 }
