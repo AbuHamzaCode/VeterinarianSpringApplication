@@ -34,7 +34,7 @@ public class AdminControllerTest extends AbstractRestControllerTest {
 
     private static final String USERNAME  = "admin";
 
-    private static final String PASSWORD = "Islam1995";
+    private static final String PASSWORD = "adminadmin";
 
     private static long ownerId;
 

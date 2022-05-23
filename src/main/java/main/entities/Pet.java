@@ -28,11 +28,12 @@ public class Pet implements Serializable {
     private String name;
 
     @NotBlank
+    @Size(max = 10)
     private String gender;
 
     @NotNull
-    @Positive
-    private Integer age;
+    @Size(max = 30)
+    private String age;
 
     @NotBlank
     @Size(max = 250)
@@ -46,7 +47,7 @@ public class Pet implements Serializable {
     public Pet() {
     }
 
-    public Pet(String breed, String name, String gender, Integer age, String description, User user) {
+    public Pet(String breed, String name, String gender, String age, String description, User user) {
         this.breed = breed;
         this.name = name;
         this.gender = gender;
@@ -87,11 +88,11 @@ public class Pet implements Serializable {
         this.gender = gender;
     }
 
-    public Integer getAge() {
+    public String getAge() {
         return age;
     }
 
-    public void setAge(Integer age) {
+    public void setAge(String age) {
         this.age = age;
     }
 
