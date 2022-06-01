@@ -13,3 +13,8 @@ Backend-demo for pet clinic project. Demo version is work on VM, so you can chec
 * Mockito
 * JWT
 
+## How to run
+* clone repo
+* open terminal in project package
+* mvn install
+* run jar file in target package
